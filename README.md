@@ -1,18 +1,18 @@
-# 🛡️ PhishGuard
+🛡️ PhishGuard
 
-**A Machine Learning-Based Phishing and Scam Risk Assessment Tool**
+A Machine Learning-Based Phishing and Scam Risk Assessment Tool
 
-PhishGuard is a Python-based application that helps assess suspicious messages and URLs using machine learning and heuristic checks.
+PhishGuard is a Python-based application designed to assess suspicious messages and URLs using machine learning and heuristic-based checks.
 
-## ✨ Features
+✨ Features
 
-- **Single Message Analysis:** Assess suspicious email or message text.
-- **Batch CSV Analysis:** Analyse multiple messages from a CSV file.
-- **URL Scanner:** Inspect URLs using heuristic-based checks.
-- **Screenshot OCR:** Extract text from screenshots using EasyOCR and assess the extracted content.
-- **Model Analytics:** View model evaluation metrics and a confusion matrix.
+- Single Message Analysis: Assess suspicious emails and messages.
+- Batch CSV Analysis: Analyse multiple messages from a CSV file.
+- URL Scanner: Inspect URLs using heuristic-based checks.
+- Screenshot OCR: Extract text from screenshots using EasyOCR and assess the extracted content.
+- Model Analytics: View model evaluation metrics and a confusion matrix.
 
-## 🧰 Tech Stack
+🧰 Tech Stack
 
 - Python
 - Streamlit
@@ -21,52 +21,38 @@ PhishGuard is a Python-based application that helps assess suspicious messages a
 - EasyOCR
 - Pandas
 
-## ⚙️ Run Locally
+⚙️ Run Locally
 
-1. Clone this repository:
+1. Get the Project
 
-   ```bash
-   git clone https://github.com/VedantKhanduri/PhishGuard.git
-   cd PhishGuard
-   ```
+Download the project files from this repository.
 
-2. Create and activate a virtual environment.
+2. Create a Virtual Environment
 
-   Windows PowerShell:
+python -m venv venv
 
-   ```powershell
-   python -m venv venv
-   .\venv\Scripts\Activate.ps1
-   ```
+Activate it on Windows PowerShell:
 
-3. Install dependencies:
+.\venv\Scripts\Activate.ps1
 
-   ```powershell
-   pip install -r requirements.txt
-   ```
+3. Install Dependencies
 
-4. Start the application:
+pip install -r requirements.txt
 
-   ```powershell
-   streamlit run app.py
-   ```
+4. Start the Application
 
-## 🔒 Privacy and Security
+streamlit run app.py
+
+🔒 Privacy and Security
 
 - Model inference runs locally when the application is run on your own machine.
 - Risk scores are estimates, not proof that a message or URL is safe.
-- URL checks may use heuristics and should not be treated as a guarantee of safety.
+- URL checks use heuristic-based analysis and cannot guarantee safety.
 
-## 📊 Model Evaluation
+📊 Model Evaluation
 
-The repository includes saved evaluation metrics. These reflect a held-out dataset split and do not guarantee performance on new, real-world phishing messages.
+The project includes saved model evaluation metrics based on a held-out dataset split. These results do not guarantee the same performance on new, real-world phishing messages.
 
-## ⚠️ Disclaimer
+⚠️ Disclaimer
 
 PhishGuard is an educational project intended for security awareness and experimentation. Always verify suspicious messages and links independently.
-
-## 👨‍💻 Author
-
-**Vedant Khanduri**
-
-GitHub: [@VedantKhanduri](https://github.com/VedantKhanduri)
