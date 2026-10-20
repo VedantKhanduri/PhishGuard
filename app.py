@@ -796,7 +796,62 @@ with tabs[0]:
             st.error(f"Analysis failed: {exc}")
             st.caption("Check that the saved model and vectorizer match.")
 
+def detect_column(df):
+    """Automatically suggest the most likely message-text column."""
+    preferred_names = [
+        "text",
+        "message",
+        "email",
+        "email_text",
+        "text_combined",
+        "content",
+        "body",
+        "sms",
+    ]
 
+    columns_by_lowercase = {
+        str(column).strip().lower(): column
+        for column in df.columns
+    }
+
+    for name in preferred_names:
+        if name in columns_by_lowercase:
+            return columns_by_lowercase[name]
+
+    # If no familiar column name exists, use the first column.
+    return df.columns[0] if len(df.columns) else None
+
+
+def uploaded_signature(raw_csv, column):
+    """Identify the uploaded CSV and selected text column."""
+    digest = hashlib.sha256()
+    digest.update(raw_csv)
+    digest.update(str(column).encode("utf-8"))
+    return digest.hexdigest()
+
+
+def safe_csv_for_spreadsheet(df):
+    """Neutralize formula-like text before exporting a CSV."""
+    safe_df = df.copy()
+
+    def neutralize(value):
+        if not isinstance(value, str):
+            return value
+
+        stripped = value.lstrip(" \t\r\n")
+
+        if stripped.startswith(("=", "+", "-", "@")):
+            return "'" + value
+
+        if value.startswith(("\t", "\r")):
+            return "'" + value
+
+        return value
+
+    for column in safe_df.columns:
+        safe_df[column] = safe_df[column].map(neutralize)
+
+    return safe_df
 # -------------------- TAB 2: BATCH CSV --------------------
 
 with tabs[1]:
