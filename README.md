@@ -1,85 +1,72 @@
-# PhishGuard — Final Project Package
+# 🛡️ PhishGuard
 
-An explainable, local machine-learning prototype for estimating phishing risk in messages and analysing batches from CSV files.
+**A Machine Learning-Based Phishing and Scam Risk Assessment Tool**
 
-## Features
+PhishGuard is a Python-based application that helps assess suspicious messages and URLs using machine learning and heuristic checks.
 
-- Single-message analysis
-- Batch CSV analysis (up to 5,000 rows in this version)
-- Calibrated Linear SVM + TF-IDF
-- Estimated phishing risk and complementary score
-- Rule-based indicators and primary threat-type labels
-- Risk distribution chart
-- Downloadable CSV results
-- Local inference; no external AI API required
+## ✨ Features
 
-## Requirements
+- **Single Message Analysis:** Assess suspicious email or message text.
+- **Batch CSV Analysis:** Analyse multiple messages from a CSV file.
+- **URL Scanner:** Inspect URLs using heuristic-based checks.
+- **Screenshot OCR:** Extract text from screenshots using EasyOCR and assess the extracted content.
+- **Model Analytics:** View model evaluation metrics and a confusion matrix.
 
-- Python 3.10 or newer (tested design target: Python 3.11)
-- Dataset file used to train the model
+## 🧰 Tech Stack
 
-## Setup on Windows
+- Python
+- Streamlit
+- Scikit-learn
+- TF-IDF
+- EasyOCR
+- Pandas
 
-Open PowerShell in the PhishGuard folder:
+## ⚙️ Run Locally
 
-```powershell
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
+1. Clone this repository:
 
-If PowerShell blocks activation in the current terminal, you can run:
+   ```bash
+   git clone https://github.com/VedantKhanduri/PhishGuard.git
+   cd PhishGuard
+   ```
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
-.\venv\Scripts\Activate.ps1
-```
+2. Create and activate a virtual environment.
 
-## Dataset
+   Windows PowerShell:
 
-Place the dataset at one of these paths:
+   ```powershell
+   python -m venv venv
+   .\venv\Scripts\Activate.ps1
+   ```
 
-- `data/phishing_email_clean.csv` (preferred)
-- `data/phishing_email.csv`
+3. Install dependencies:
 
-Required columns:
+   ```powershell
+   pip install -r requirements.txt
+   ```
 
-- `text_combined`: message body/text
-- `label`: `0` for legitimate and `1` for phishing
+4. Start the application:
 
-The training script performs basic cleaning and removes duplicate text/label rows. Only use a dataset whose labels and licence you have checked.
+   ```powershell
+   streamlit run app.py
+   ```
 
-## Train the model
+## 🔒 Privacy and Security
 
-```powershell
-python src/train_model.py
-```
+- Model inference runs locally when the application is run on your own machine.
+- Risk scores are estimates, not proof that a message or URL is safe.
+- URL checks may use heuristics and should not be treated as a guarantee of safety.
 
-This creates:
+## 📊 Model Evaluation
 
-- `models/phishguard_calibrated.pkl`
-- `models/phishguard_tfidf.pkl`
-- `models/calibrated_metrics.json`
+The repository includes saved evaluation metrics. These reflect a held-out dataset split and do not guarantee performance on new, real-world phishing messages.
 
-## Run the app
+## ⚠️ Disclaimer
 
-```powershell
-streamlit run app.py
-```
+PhishGuard is an educational project intended for security awareness and experimentation. Always verify suspicious messages and links independently.
 
-## Batch CSV input
+## 👨‍💻 Author
 
-Upload a CSV with a message column named one of:
+**Vedant Khanduri**
 
-`text`, `message`, `email`, `email_text`, `text_combined`, `content`, `body`, `sms`
-
-If the column name is different, select the correct column in the UI.
-
-## Important limitations
-
-- Risk scores are model estimates, not guarantees or proof of maliciousness/safety.
-- The complementary trust score is calculated as `100 - estimated risk`; it is not an independently measured probability of safety.
-- Threat categories and indicators are transparent keyword/pattern heuristics, not a separate trained threat-type classifier.
-- A low-risk prediction must not be treated as a safety guarantee.
-- The model's training corpus may differ from real SMS, chat messages, newer phishing campaigns, languages, and URL behaviour. External validation is recommended before any real-world security use.
-- This project does not fetch or visit links and does not analyse attachments.
+GitHub: [@VedantKhanduri](https://github.com/VedantKhanduri)
